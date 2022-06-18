@@ -11,16 +11,22 @@ public class Solution {
         int siu=0;
         
         // while (n!=0){
-        for(int i=0;i<32;i++){
-//             checking the last digit is one or zero
-            if((n&1)==1)
-                siu++;
+//         for(int i=0;i<32;i++){
+// //             checking the last digit is one or zero
+//             if((n&1)==1)
+//                 siu++;
             
-            n>>=1;
-            if (n==0){
-                break;
-            }
-        }
+//             n>>=1;
+//             if (n==0){
+//                 break;
+//             }
+//         }
+//         Approach3
+    	while(n!=0) {
+    		siu = siu + (n & 1);
+    		n = n>>>1;
+    	}
+
     
         return siu;
     }
