@@ -39,6 +39,10 @@ Thus Solution Condition
 
 
 
+***
+## COMPLEXITY ANALYSIS
+
+![image](https://user-images.githubusercontent.com/72220114/174429586-ff8d1e49-f230-4980-b941-7e4d9df54e90.png)
 
 
 --- 
