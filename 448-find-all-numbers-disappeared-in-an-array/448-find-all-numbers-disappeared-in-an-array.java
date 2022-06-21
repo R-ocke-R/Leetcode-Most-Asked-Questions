@@ -4,9 +4,9 @@ class Solution {
 //         that integers are in the range [1, n]
         List<Integer> ans= new ArrayList<>();
         for(int i=0;i<nums.length;i++){
-            int index=Math.abs(nums[i])-1;
-            if (nums[index]<0) continue;
-            nums[index]=-nums[index];
+            // int index=Math.abs(nums[i])-1;
+            if (nums[Math.abs(nums[i])-1]>0)
+            nums[Math.abs(nums[i])-1]*=-1;
         }
         System.out.println(Arrays.toString(nums));
         for(int i=0;i<nums.length;i++)
