@@ -25,7 +25,7 @@ e=mid-1;
 In this way in only one call to the function we get the left most occurance.
 
 
-===
+___
 
 APPLICATIONS 
 
