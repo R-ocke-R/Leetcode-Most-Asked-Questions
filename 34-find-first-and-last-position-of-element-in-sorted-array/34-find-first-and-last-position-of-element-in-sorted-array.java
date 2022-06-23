@@ -5,20 +5,18 @@ class Solution {
         if(buffer[0]==-1){
             return new int[]{-1, -1};
         }
-        int first=buffer[1];
-        int last=buffer[1];
+        int first=buffer[0];
+        int last=buffer[0];
         int end=buffer[2];
 
-        // To slightly increase the complexity I can use 0th element as mid.
-        // int[] buffer = new int[3];// constant space array
         
         while (true){
-            buffer=BSearch(nums, target, buffer[0], first-1);
+            buffer=BSearch(nums, target, buffer[1], first-1);
 
             if(buffer[0]==-1){
                 break;
             }
-            first=buffer[1];
+            first=buffer[0];
             // buffer[0]=buffer[1];           
         }
         
@@ -29,7 +27,7 @@ class Solution {
             if(buffer[2]==-1){
                 break;
             }
-            last=buffer[1];
+            last=buffer[0];
         }
         return new int[]{first, last};
     }
@@ -38,7 +36,7 @@ class Solution {
         while(start<=end){
             int mid=start+((end-start)/2); 
             if (arr[mid]==ele){
-                return (new int[]{start, mid, end});
+                return (new int[]{mid, start, end});
             }
             else if(arr[mid]>ele){
                 end=mid-1;
