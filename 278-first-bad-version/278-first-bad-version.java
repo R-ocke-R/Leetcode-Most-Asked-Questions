@@ -5,19 +5,16 @@ public class Solution extends VersionControl {
     public int firstBadVersion(int n) {
         int s=1;int e=n;
         int mid=s+((e-s)/2);
-        int ans=1;
         while(s<=e){
-            boolean a=isBadVersion(mid);
-            if (a){
+            if (isBadVersion(mid)){
                 e=mid-1;
-                ans=mid;
             }
             else{
                 s=mid+1;
             }
             mid=s+((e-s)/2);
         }
-        return ans;
+        return s;
         
     }
 }
