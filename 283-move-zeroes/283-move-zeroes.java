@@ -1,26 +1,29 @@
 class Solution {
-    public static void approach2(int []arr){
-        //using constant space + linear time complexity.
-        //trying a modified bubble search at each iteration/round of bubble search i'll have a zero in the end
-        for (int i = 0; i < arr.length-1; i++) {
-            boolean count=false;
-            for (int j = 0; j < arr.length-i-1; j++) {
-                
-                if(arr[j]==0){
-                    // swap forward with arr[j+1]
-                    count=true;arr[j]=arr[j+1];arr[j+1]=0;
+    public static void approach3(int[] arr){
+        //optimisation of time complexity.
+        
+        int i=0;//for zero.
+        while(i<arr.length){
+            if(arr[i]==0){
+                //find next nonzero to swap with.
+                for (int j = i; j < arr.length; j++) {
+                    if(arr[j]!=0){
+                        arr[i]=arr[j];
+                        arr[j]=0;
+                        break;
+                    }
+                    continue;
                 }
-                
-                
+                if(arr[i]==0){
+                    break;//thus no more zero's
+                }
             }
-            if (count==false){
-                break;
-            }
+            else i++;
         }
         // System.out.println(Arrays.toString(arr));
     }
     public void moveZeroes(int[] nums) {
-        approach2(nums);
+        approach3(nums);
         
     }
 }
