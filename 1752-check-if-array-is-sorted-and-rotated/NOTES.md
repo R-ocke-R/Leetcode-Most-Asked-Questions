@@ -9,4 +9,5 @@ https://github.com/R-ocke-R/Leetcode-Most-Asked-Questions/tree/main/189-rotate-a
 
 
 
-![image](https://user-images.githubusercontent.com/72220114/176950975-bccc042f-cf13-4a19-b7e3-3737df1b367f.png)
+![image](https://user-images.githubusercontent.com/72220114/176950975-bccc042f-cf13-4a19-b7e3-3737df1b367f.png)![image](https://user-images.githubusercontent.com/72220114/176951291-f6652d06-4336-4e63-be82-3030e69c09c4.png)
+
