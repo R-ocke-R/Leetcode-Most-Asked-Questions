@@ -13,3 +13,6 @@ Tried 4 different brute - better - optimised approaches.
 
 
 
+C'mon all the approaches are self-explanatory, even the optimised version needs just a simple thought in that direction. 
+
+
