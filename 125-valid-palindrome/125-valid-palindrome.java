@@ -3,9 +3,11 @@ class Solution {
         
     
         String ss=new String();
+        char ch;
         for (int i = 0; i < s.length(); i++) {
-            if(Character.isLetterOrDigit(s.charAt(i))){
-                ss+=Character.toLowerCase(s.charAt(i));
+            ch=s.charAt(i);
+            if(Character.isLetterOrDigit(ch)){
+                ss+=Character.toLowerCase(ch);
             }
         }
         if(ss.length()<2) return true;
