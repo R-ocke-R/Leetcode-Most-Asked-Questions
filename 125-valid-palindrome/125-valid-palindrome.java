@@ -3,17 +3,16 @@ class Solution {
         
     
         String ss=new String();
-        char ch;
         for (int i = 0; i < s.length(); i++) {
-            ch=s.charAt(i);
-            if(Character.isLetter(ch)|| Character.isDigit(ch)){
-                ss+=ch;
+            if(Character.isLetterOrDigit(s.charAt(i))){
+                ss+=Character.toLowerCase(s.charAt(i));
             }
         }
+        if(ss.length()<2) return true;
         int st=0;
         int e=ss.length()-1;
         while(st<e){
-            if(Character.toLowerCase(ss.charAt(st++))!=Character.toLowerCase(ss.charAt(e--))){
+            if(ss.charAt(st++)!=ss.charAt(e--)){
                 return false;
             }
         }
