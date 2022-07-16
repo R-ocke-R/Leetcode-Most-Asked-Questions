@@ -13,13 +13,15 @@ class Solution {
 //         now attempting to implement a logarithmic solution, by modifying BS
         int s=0;
         int e=arr.length-1;
-        while(s<=e){
-            int mid=s+((e-s)/2);
+        int mid=s+((e-s)/2);
+        while(s<e){
+            mid=s+((e-s)/2);
+            // System.out.println(mid+" "+s+" "+ e);
             if(arr[mid-1]<arr[mid] && arr[mid]>arr[mid+1]){
                 return mid;
             }
-            else if(arr[mid-1]<arr[mid]){
-                s=mid+1;
+            if(arr[mid+1]>arr[mid]){
+                 s=mid+1;
             }
             else{
                 e=mid;
