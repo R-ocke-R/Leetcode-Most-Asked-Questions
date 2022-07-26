@@ -24,14 +24,15 @@ class Solution {
 //     }
     public String removeDuplicates(String s){
         StringBuilder sb=new StringBuilder();
+        int z=0;
         for(int i=0;i<s.length();i++){
-            if(sb.length()>0){
-                if(sb.charAt(sb.length()-1)==s.charAt(i)){
-                sb.setLength(sb.length()-1);
+            if(z>0){
+                if(sb.charAt(z-1)==s.charAt(i)){
+                sb.setLength(z-1);z--;
                     continue;
                 }
             }
-            
+            z+=1;
             sb.append(s.charAt(i));
             
         }return sb.toString();
