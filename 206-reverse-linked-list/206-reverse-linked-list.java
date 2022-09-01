@@ -9,20 +9,39 @@
  * }
  */
 class Solution {
+    // public ListNode reverseList(ListNode head) {
+    //     if(head==null || head.next==null) return head;
+    //     ListNode prev=head;
+    //     ListNode temp=null;
+    //     ListNode front=head.next;
+    //     while(front.next!=null){
+    //         temp=front.next;
+    //         front.next=prev;
+    //         prev=front;
+    //         front=temp;
+    //     }
+    //     front.next=prev;
+    //     head.next=null;
+    //     head=front;
+    //     return head;
+    // }
     public ListNode reverseList(ListNode head) {
-        if(head==null || head.next==null) return head;
-        ListNode prev=head;
-        ListNode temp=null;
+        if(head==null || head.next==null ) return head;
+        ListNode temp= head;
+        ListNode prev=null;
         ListNode front=head.next;
-        while(front.next!=null){
-            temp=front.next;
-            front.next=prev;
-            prev=front;
-            front=temp;
+        while(front != null){
+            
+            temp.next=prev;
+            
+            prev=temp;
+            temp=front;
+            front=front.next;
+            
         }
-        front.next=prev;
-        head.next=null;
-        head=front;
+        temp.next=prev;
+        head=temp;
         return head;
     }
+    
 }
