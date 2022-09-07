@@ -31,11 +31,27 @@ class Solution {
         return c;
     }
     
+    public int space2(int[] nums, int s, int e){
+        // int n=nums.length;
+        // int elements=n-1;
+        // if(n==2) return nums[
+        int a=nums[s];
+        int b=Math.max(nums[s], nums[s+1]);
+        int c=Math.max(a, b);
+        for(int i=s+2;i<e;i++){
+            c=Math.max((nums[i]+a), b);
+            a=b;
+            b=c;            
+        }
+        return c;        
+    }
+    
     
     public int rob(int[] nums) {
         
         // question same as house robber 1
         //taking the function from that question
+        // first trying the recursive approach :- TLE given
         
 //         int n=nums.length;
         
@@ -46,23 +62,34 @@ class Solution {
 //         // System.out.println(first+" " + last);
         
 //         return Math.max(space(first), last);
-//         
         
-        int n = nums.length;
+        
+//         this approach creates two arrays and copies the elements into them. thus space O(n) 
+//         where our DP was O(1) space.
+//         int n = nums.length;
+//         if(n==1) return nums[0];
+        
+//         int[] first=new int[n-1];
+//         int[] last=new int[n-1];
+        
+//         for(int i=0;i<n-1;i++){
+//             first[i]=nums[i];  
+//         }
+//         for(int i=1;i<n;i++){
+//             last[i-1]=nums[i];
+//         }
+        
+//         return Math.max(space(first), space(last));
+        
+        
+        
+        int n=nums.length;
         if(n==1) return nums[0];
-        
-        int[] first=new int[n-1];
-        int[] last=new int[n-1];
-        for(int i=0;i<n-1;i++){
-            first[i]=nums[i];  
-        }
-        for(int i=1;i<n;i++){
-            last[i-1]=nums[i];
-        }
-        
-        // System.out.println(Arrays.toString(last));
-        
-        return Math.max(space(first), space(last));
+        if(n==2) return Math.max(nums[0], nums[1]);
+        int first=space2(nums, 0, n-1);
+        int last=space2(nums, 1, n);
+        // System.out.println(first+" "+ last);
+        return Math.max(first, last);
         
     }
 }
