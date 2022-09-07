@@ -65,6 +65,23 @@ class Solution {
         }
         return dp[nums.length-1];
     }
+    
+    public int space(int[] nums) {
+        int n=nums.length;
+        if(n==1) return nums[0];
+        if(n==2) return Math.max(nums[0], nums[1]);
+        
+        int a=nums[0];
+        int b=Math.max(nums[0], nums[1]);
+        int c=0;
+        for(int i=2;i<n;i++){
+            c=Math.max((nums[i]+a), b);
+            a=b;
+            b=c;
+        }
+        return c;
+    }
+    
     public int rob(int[] nums) {
         //introducing a new series of questions here, house robber type.
 //         can this be solved with binary Search? 
@@ -91,7 +108,10 @@ class Solution {
         // return rob2M(nums, 0, dp);
         
         //calling tabulation
-        return tab(nums);
+        // return tab(nums);
+        
+        //calling space optimised tabulation
+        return space(nums);
         
     }
 }
