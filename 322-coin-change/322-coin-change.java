@@ -32,6 +32,52 @@ class Solution {
         dp[amt]=mini;
         return mini;
     }
+    
+    public int bottomUp(int[] coins, int amt){
+        
+        //step 1
+        int[] dp= new int[amt+1];
+        Arrays.fill(dp, Integer.MAX_VALUE);
+        
+        //step 2
+        dp[0]=0;
+
+        // dp[i] contains the minimum number of coins, required to make the amount=i;
+        // so to make dp[amt] there will be coins.length dependencies to dp[amt-coin_j] where coin_j is the value of coins[j] 
+        for(int i=1;i<=amt;i++){
+            for(int j=0;j<coins.length;j++){
+                int coin_j=coins[j];
+                if((i-coin_j)>=0 && dp[i-coin_j]!=Integer.MAX_VALUE)
+                dp[i]=Math.min(dp[i], dp[i-coin_j]+1);
+            }
+
+            
+        }
+        // System.out.println(Arrays.toString(dp));
+        if(dp[amt]==Integer.MAX_VALUE) return -1;
+        return dp[amt];
+    }
+    
+    
+    
+    // cleaner recursive code
+    public int recurtry(int[] coins, int amt) {
+        
+        if(amt<0) return Integer.MAX_VALUE;
+        if(amt==0) return 0;
+        
+        int mini=Integer.MAX_VALUE;
+        
+        for(int i=0;i<coins.length;i++){
+            int call=recurtry(coins, amt-coins[i]);
+            if(call !=Integer.MAX_VALUE) mini=Math.min(mini, call+1);
+        }
+        return mini;
+    }
+    
+    
+    
+    
     public int coinChange(int[] coins, int amt) {
         //above was approach 1-> Real Life described in copy
         // Arrays.sort(coins);
@@ -50,6 +96,9 @@ class Solution {
         // }
         // if(amt==0) return count;
         
+        
+        
+        
         //recursion
         
         // int ans=recursion(coins, amt);
@@ -58,12 +107,21 @@ class Solution {
 
 
         //Top down R + M
-        int [] dp=new int[amt+1];
-        //step 2 fill dp with base cases.
-        dp[0]=0;
-        int ans= topdown(coins, amt, dp);
-        // System.out.println(Arrays.toString(dp));
-        if(ans==Integer.MAX_VALUE) return -1;
-        return ans;
+        // int [] dp=new int[amt+1];
+        // //step 2 fill dp with base cases.
+        // dp[0]=0;
+        // int ans= topdown(coins, amt, dp);
+        // // System.out.println(Arrays.toString(dp));
+        // if(ans==Integer.MAX_VALUE) return -1;
+        // return ans;
+        
+        
+        return bottomUp(coins, amt);
+        
+        //trying recursion again
+        // int ans=recurtry(coins, amt);
+        // if(ans==Integer.MAX_VALUE) return -1;
+        // return ans;
+        
     }
 }
