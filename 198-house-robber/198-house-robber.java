@@ -44,6 +44,27 @@ class Solution {
         return dp[i];
         
     }
+    
+    public int tab(int[] nums){
+        
+        int n=nums.length;
+            
+        if(n==1){return nums[0];}
+        if(n==2){return Math.max(nums[0], nums[1]);}
+        
+        int[] dp= new int[n];
+        // Arrays.fill(dp, -1);
+        
+        dp[0]=nums[0];
+        dp[1]=Math.max(nums[0], nums[1]);
+            
+        for(int i=2;i<n;i++){
+            int steal=nums[i]+dp[i-2];
+            int not=dp[i-1];
+            dp[i]=Math.max(steal, not);
+        }
+        return dp[nums.length-1];
+    }
     public int rob(int[] nums) {
         //introducing a new series of questions here, house robber type.
 //         can this be solved with binary Search? 
@@ -65,9 +86,12 @@ class Solution {
         // return rob1Recursive(nums, 0);
         
         // calling Memoization
-        int[] dp=new int[nums.length];
-        Arrays.fill(dp, -1);
-        return rob2M(nums, 0, dp);
+        // int[] dp=new int[nums.length];
+        // Arrays.fill(dp, -1);
+        // return rob2M(nums, 0, dp);
+        
+        //calling tabulation
+        return tab(nums);
         
     }
 }
