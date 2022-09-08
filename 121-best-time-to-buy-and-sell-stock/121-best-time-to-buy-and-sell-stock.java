@@ -27,9 +27,9 @@ class Solution {
 
     public int maxProfit(int[] prices){
         //improving the space complexity of the approach
-        int buy=Integer.MAX_VALUE;
+        int buy=prices[0];
         int mx=0;
-        for(int i=0;i<prices.length;i++){
+        for(int i=1;i<prices.length;i++){
             int pr=prices[i];
             if(buy>pr) buy=pr;
             mx=Math.max(mx, pr-buy);
