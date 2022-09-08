@@ -1,5 +1,5 @@
 class Solution {
-    public int maxProfit(int[] prices) {
+    public int maxProfit(int[] prices, int dummy) {
         // int[] dp=new int[prices.length];
         int n=prices.length;
         
@@ -24,11 +24,27 @@ class Solution {
         return profit;
         
     }
+
+    public int maxProfit(int[] prices){
+        //improving the space complexity of the approach
+        int buy=Integer.MAX_VALUE;
+        int mx=0;
+        for(int i=0;i<prices.length;i++){
+            int pr=prices[i];
+            if(buy>pr) buy=pr;
+            mx=Math.max(mx, pr-buy);
+
+        }
+        // System.out.println(buy+" "+ mx);
+        return mx;
+    }
 }
 
 //Notes:
 /*
 for any given element index, the profit depends on the index+1 to n; whereever we get 
 more value than element at index itself.
+
+dp approach ?
 
 */
