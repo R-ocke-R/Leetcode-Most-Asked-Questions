@@ -21,4 +21,5 @@ class Solution {
         return slow.next;
         
     }
+    //other approach is to calculate len and then traverse to mid + 1;
 }
