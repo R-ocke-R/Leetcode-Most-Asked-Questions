@@ -14,7 +14,8 @@ class Solution {
             }
             
         }
-        if(total<0) return -1;
-        return pos+1;
+        // if(total<0) return -1;
+        // return pos+1;
+        return total<0? -1:pos+1;
     }
 }
