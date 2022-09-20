@@ -1,6 +1,8 @@
 class Solution {
     public int longestCommonSubsequence(String text1, String text2) {
-        int[][] temp=new int[text1.length()+1][text2.length()+1];
+        int n1=text1.length();
+        int n2=text2.length();
+        int[][] temp=new int[n1+1][n2+1];
         
         //convert string to char array
         char[] str1=text1.toCharArray();
@@ -17,7 +19,7 @@ class Solution {
                 
             }
         }
-        return temp[text1.length()][text2.length()];
+        return temp[n1][n2];
     }
 }
 
