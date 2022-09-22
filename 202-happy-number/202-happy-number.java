@@ -1,7 +1,7 @@
 class Solution {
     public boolean isHappy(int n) {
         HashMap<Integer, Integer> map=new HashMap<>();
-        
+        //can use list.contains also; would save space in storing pairs.
         while(n!=1){
             int copy=n;
             int rev=0;
