@@ -11,9 +11,9 @@ class Solution {
         // }
         // return mask&(~num);
         // int ans;.
-        if(num==1)return 0;
+        // if(num==1)return 0;
         int set=31;
-        for(int i=31;i>=1;i--){
+        for(int i=31;i>=0;i--){
             if((num & (1<<i))==1<<i){
                 set=i;
                 // System.out.println(i);
