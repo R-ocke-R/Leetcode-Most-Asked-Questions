@@ -14,14 +14,6 @@
  * }
  */
 class Solution {
-//     public int recursive(TreeNode root){
-//         if(root==null) return true;
-        
-//         int left=recursive(root.left);
-//         int right=recursive(root.right);
-        
-//         if(left+right)
-//     }
     public boolean checkTree(TreeNode root) {
         if(root.left.val+root.right.val==root.val) return true;
         return false;
