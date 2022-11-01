@@ -127,8 +127,6 @@ class Solution
         ArrayList<Integer> ans= new ArrayList<>();
         Queue<pair> queue= new LinkedList<>();
         
-        int leftLine=0;
-        
         Map<Integer, ArrayList<Integer>> map= new TreeMap<>();
         
         queue.add(new pair(root, 0));
@@ -141,21 +139,15 @@ class Solution
             }
             map.get(temp.line).add(temp.nod.data);
             
-            //update left line
-            leftLine=Math.min(leftLine, temp.line);
             
             if(temp.nod.left!=null) queue.add(new pair(temp.nod.left, temp.line-1));
             if(temp.nod.right!=null) queue.add(new pair(temp.nod.right, temp.line+1));
             
             
         }
-        // System.out.println(Arrays.asList(map));
         for (Map.Entry<Integer, ArrayList<Integer>> entry : map.entrySet()){
             ans.addAll(entry.getValue());
         }
-            // System.out.println(
-            //     "[" + entry.getKey()
-            //     + ", " + entry.getValue() + "]");
         
         return ans;
         
