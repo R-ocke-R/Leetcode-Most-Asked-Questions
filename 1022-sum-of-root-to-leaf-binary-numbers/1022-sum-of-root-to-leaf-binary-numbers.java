@@ -16,22 +16,24 @@
 class Solution {
     int val; // global to store the sum of each final number
 
-    public void preorder(TreeNode root, String bin){
+    public void preorder(TreeNode root, StringBuilder bin){
         if(root==null) return ;
         
-        bin=bin+root.val;
+        bin.append(root.val);
+        int size=bin.length();
         if(root.left==null && root.right==null) // found a leaf node
         {
-            val+=Integer.parseInt(bin, 2);
+            val+=Integer.parseInt(bin.toString(), 2);
             return;
         }
         preorder(root.left, bin);
+        bin.setLength(size);
         preorder(root.right, bin);
     }
     
     public int sumRootToLeaf(TreeNode root) {
         val=0;
-        preorder(root, "");
+        preorder(root, new StringBuilder());
         return val;
     }
 }
