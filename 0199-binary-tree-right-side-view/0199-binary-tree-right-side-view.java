@@ -47,13 +47,13 @@ class Solution {
 //         return ans;
 //     }
     public List<Integer> rightSideView(TreeNode root){
-        
+        // / this  function is better than above, as we don't need pair, nor we need a map.
         ArrayList<Integer> ans = new ArrayList<>();
         if(root==null) return ans;
         Queue<TreeNode> queue= new LinkedList<>();
         queue.add(root);
         queue.add(null);
-        // boolean print=true;
+        // boolean print=true; for left view simpler then right view.
         int last=root.val;
         while(!queue.isEmpty())
         {
