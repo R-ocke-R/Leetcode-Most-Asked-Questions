@@ -19,24 +19,18 @@ class Solution {
         if(root==null) return ;
         
         path.add(root.val);
-        targetSum-=root.val;
-        // System.out.println(path);
         if(root.left==null && root.right==null) {
             // found a root to leaf path in path list
-            if(targetSum==0) {
-                // add the path formed into ans
-                ans.add(new ArrayList<Integer>(path));
-                // path is mutable
-            }            
+            // add the path formed into ans in a way that it doesn't get mutatated.
+            if(targetSum==root.val) ans.add(new ArrayList<Integer>(path));            
         }
         
-        recursive(root.left, targetSum, path, ans);
-        recursive(root.right, targetSum, path, ans);
+        recursive(root.left, targetSum-root.val, path, ans);
+        recursive(root.right, targetSum-root.val, path, ans);
         
-        path.remove(path.size()-1);
-        return;
-                
+        path.remove(path.size()-1);                
     }
+    
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
         List<List<Integer>> ans= new ArrayList<List<Integer>>();
         ArrayList<Integer> path = new ArrayList<>();
