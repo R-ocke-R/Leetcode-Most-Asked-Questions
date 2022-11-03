@@ -24,9 +24,7 @@ class Solution {
         
         TreeNode temp= new TreeNode(element);
         temp.right=builder(inorder, postorder, rootInInorder+1, inorderEnd, length, mapping);
-        temp.left=builder(inorder, postorder, inorderStart, rootInInorder-1, length, mapping);
-
-        
+        temp.left=builder(inorder, postorder, inorderStart, rootInInorder-1, length, mapping);        
         return temp;       
         
     }
