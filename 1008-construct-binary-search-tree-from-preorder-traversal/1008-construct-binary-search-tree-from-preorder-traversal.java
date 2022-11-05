@@ -19,16 +19,16 @@ class Solution {
         if(preorder==null ) return null;
         
         nodeIndex=0;
-        return helper(preorder, Integer.MIN_VALUE, Integer.MAX_VALUE);
+        return helper(preorder, Integer.MAX_VALUE);
     }
-    public TreeNode helper(int[] preorder, int start, int end){
-        if(nodeIndex==preorder.length || preorder[nodeIndex]< start || preorder[nodeIndex]>end){
+    public TreeNode helper(int[] preorder, int end){
+        if(nodeIndex==preorder.length || preorder[nodeIndex]>end){
             return null;
         }
         int val=preorder[nodeIndex++];
         TreeNode node=new TreeNode(val);
-        node.left=helper(preorder, start, val);
-        node.right=helper(preorder, val, end);
+        node.left=helper(preorder, val);
+        if(nodeIndex!=preorder.length  &&  preorder[nodeIndex]>val) node.right=helper(preorder, end);
         return node;
     }
 }
