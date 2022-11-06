@@ -13,6 +13,11 @@
  *     }
  * }
  */
+
+// have solved with min and max both-> in notion 
+
+
+// this is solved using only max (by adding only one if condition before calling for the right tree);
 class Solution {
     int nodeIndex;
     public TreeNode bstFromPreorder(int[] preorder) {
