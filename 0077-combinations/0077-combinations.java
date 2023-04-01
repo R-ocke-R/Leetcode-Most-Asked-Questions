@@ -11,7 +11,7 @@ class Solution {
         for(int index = i; index <= n; index ++){
             dummy.add(index);
             if(count+1==k) answer.add(new ArrayList<Integer>(dummy));
-            function(n, k, answer, dummy, count+1, index+1);
+            else function(n, k, answer, dummy, count+1, index+1);
             dummy.remove(dummy.size()-1);
             
         }
