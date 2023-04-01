@@ -1,15 +1,16 @@
 class Solution {
     public void function(int n, int k, List<List<Integer>> answer, List<Integer> dummy, int count, int i){
         // base case.
-        if(count==k){
-            // add dummy to answer
-            answer.add(new ArrayList<Integer>(dummy));
-            return;
-        }
+        // if(count==k){
+        //     // add dummy to answer
+        //     answer.add(new ArrayList<Integer>(dummy));
+        //     return;
+        // }
         
         // function calling
         for(int index = i; index <= n; index ++){
             dummy.add(index);
+            if(count+1==k) answer.add(new ArrayList<Integer>(dummy));
             function(n, k, answer, dummy, count+1, index+1);
             dummy.remove(dummy.size()-1);
             
