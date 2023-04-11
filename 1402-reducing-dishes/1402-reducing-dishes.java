@@ -40,6 +40,30 @@ class Solution {
         return dp[time][index];
     }
     
+    public int tabulation(int[] satisfaction){
+        // dont' stress over this, very concrete steps.
+        
+        // first, create the DP array, the fill in the base cases
+        int n= satisfaction.length;
+        int[][] dp= new int[n+1][n+1];
+        // base is 0 at n index, which is already filled
+        
+        // second, reverse the flow from top down to bottom up.
+        
+        for(int index=n-1; index>=0; index--){
+            for(int time=index; time>=0; time--){
+                // third is to copy the recursive steps and change calls to DP.
+        
+                int num = ((time+1) * satisfaction[index]) + dp[time+1][index+1];
+
+                num = Math.max(num, dp[time][index+1]);
+
+                dp[time][index]=num;
+            }
+        }
+        return dp[0][0];
+
+    }
     public int maxSatisfaction(int[] satisfaction) {
         
         // calling recursive
@@ -48,9 +72,13 @@ class Solution {
         
         // Recursive gives TLE> Moving to MEMO> 
         
+        // Arrays.sort(satisfaction);
+        // int[][] dp= new int[satisfaction.length+1][satisfaction.length+1];
+        // return memo(satisfaction, 1, 0, dp);
+        
+        // Passed with memo here, how hard was this.
         Arrays.sort(satisfaction);
-        int[][] dp= new int[satisfaction.length+1][satisfaction.length+1];
-        return memo(satisfaction, 1, 0, dp);
+        return tabulation(satisfaction);
         
     }
 }
