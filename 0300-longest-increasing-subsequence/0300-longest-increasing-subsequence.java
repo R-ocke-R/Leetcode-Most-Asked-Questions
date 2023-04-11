@@ -16,6 +16,7 @@ class Solution {
         
         return val;
     }
+    
     public int memo(int[] nums, int index, int prevIndex, int[][] dp){
         // base
         if(index == nums.length){
@@ -30,14 +31,34 @@ class Solution {
         return val;
     }
     
+    public int tabulation(int[] nums){
+        // Step 1: create DP and fill in the base cases.
+        int n=nums.length;
+        int[][] dp = new int[n+1][n+1];
+        
+        // base cases already 0
+        
+        // Step 2: bottom up!!
+        for(int index=n-1; index>=0; index--){
+            for(int prev=index-1; prev>=-1; prev--){
+                int val = dp[index+1][prev+1];
+                if(prev==-1 || nums[index]>nums[prev]) val= Math.max(val, 1+ dp[index+1][index+1]);
+                dp[index][prev+1]=val;
+            }
+        }
+        return dp[0][0];
+    }
     public int lengthOfLIS(int[] nums) {
         // recursive gives TLE
         // return recursive(nums, 0, -1);
         
        // moving to memo
-        int n = nums.length;
-        int[][] dp = new int[n][n+1];
-        return memo(nums, 0, -1, dp);
+        // int n = nums.length;
+        // int[][] dp = new int[n][n+1];
+        // return memo(nums, 0, -1, dp);
+        // works yet slow
+        
+        return tabulation(nums);
         
     }
 }
