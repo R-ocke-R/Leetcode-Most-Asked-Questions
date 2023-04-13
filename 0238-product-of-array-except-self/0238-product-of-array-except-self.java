@@ -17,7 +17,8 @@ class Solution {
         }
         return nums;
     }
-    public int[] productExceptSelf(int[] nums){
+    
+    public int[] productExceptSelf2(int[] nums){
         int n = nums.length;
         int[] left = new int[n];
         int[] right= new int[n];
@@ -38,12 +39,35 @@ class Solution {
         }
         return nums;
     }
+    
+    public int[] productExceptSelf(int[] nums){
+        int L = 1;
+        int n= nums.length;
+        
+        int[] result = new int[n];
+        for(int i = 0; i < n; i++ ){
+            result[i] = L;
+            L = L * nums[i];
+        }
+        
+        int R = 1;
+        for(int i = n-1; i >= 0; i--){
+            result[i] = result[i] * R;
+            R = R * nums[i];
+        }
+        
+        return result;
+    }
 }
 
 
 /*
 
-This could be a simple linear solution if there wasn't a restriction on division
+This could be a simple linear solution if there wasn't a restriction on division\
+
+first solution using 2 space array left and right are used.
+
+second optimisation using only single output array is also possible.
 
 */
 
