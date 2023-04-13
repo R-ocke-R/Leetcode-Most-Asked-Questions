@@ -48,17 +48,52 @@ class Solution {
         }
         return dp[0][0];
     }
+    
+    public int bs(ArrayList<Integer> list, int num){
+        int min = 0;
+        int max = list.size()-1;
+        
+        while(min<=max){
+            int mid = min + (max-min)/2;
+            
+            if(list.get(mid) < num){
+                min = mid+1;
+            }
+            else max = mid-1;
+        }
+        return min;        
+        
+    }
+    public int binarySearchDP(int[] nums){
+        ArrayList<Integer> list= new ArrayList<>();
+        
+        for(int num : nums){
+            
+            if(list.size() == 0 || num > list.get(list.size()-1)){
+                list.add(num);
+            }
+            else{
+                int index = bs(list, num);
+                list.set(index, num);
+            }
+        }
+        return list.size();
+    }
+    
+    
     public int lengthOfLIS(int[] nums) {
         // recursive gives TLE
         // return recursive(nums, 0, -1);
         
-       // moving to memo
+       // moving to memo 
         // int n = nums.length;
         // int[][] dp = new int[n][n+1];
         // return memo(nums, 0, -1, dp);
         // works yet slow
         
-        return tabulation(nums);
+        // return tabulation(nums);
+        
+        return binarySearchDP(nums);
         
     }
 }
