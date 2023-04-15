@@ -14,7 +14,6 @@ class Solution {
         }
         return ans;
     }
-    
     public int memo(int dice, int totalNumber, int k, int target, int[][] dp){
         if(totalNumber==dice){
             if(target==0) return 1;
@@ -39,6 +38,12 @@ class Solution {
             Arrays.fill(dp[i], -1);
         }
         return memo(0, n, k, target, dp);
+        // accepted memoization
+        
+        // learning was how to use mod into the answer
+        
+        // Can do tabulation and Space optimization they are a little boring to do right now.
+        // so moving on.
         
     }
 }
