@@ -56,6 +56,27 @@ class Solution {
         return dp[0][tSum];
         
     }
+    public boolean space(int[] nums, int tSum){
+        int n= nums.length;
+        boolean[] curr= new boolean[tSum+1];
+        boolean[] next= new boolean[tSum+1];
+        
+        curr[0]=true;
+        next[0]=true;
+        for(int index = n-1 ; index >= 0; index--){
+            for(int target = 0; target <= tSum; target ++){
+                boolean addCall = false;
+                if(target-nums[index]>=0) addCall = next[target-nums[index]];
+                boolean Call = next[target];
+
+                boolean ans= (Call || addCall);
+                curr[target]=ans;
+            }
+            next=curr;
+            curr=new boolean[tSum+1];
+        }
+        return next[tSum];
+    }
     public boolean canPartition(int[] nums) {
         int n= nums.length;
         int sum=0;
@@ -69,8 +90,9 @@ class Solution {
         
         // if(sum%2!=0) return false;
         if ((sum & 1) == 1) return false;
-        // return caller(nums, n, 0, sum/2);             Recursive call
-        // return memo(nums, 0, sum/2, dp
-        return tabulation(nums, sum/2);
+        // return caller(nums, n, 0, sum/2);             Recursive call TLE
+        // return memo(nums, 0, sum/2, dp               Memoisation call worked
+        // return tabulation(nums, sum/2);              Tabulation call worked
+        return space(nums, sum/2);
     }
 }
