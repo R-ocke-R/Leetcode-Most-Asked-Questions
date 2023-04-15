@@ -11,6 +11,7 @@ class Solution {
         
         return Math.max(take, notTake);
     }
+    
     public int memo(int[] slices, int index, int endIndex, int n, int[][] dp)
     {
         // base case
@@ -26,7 +27,8 @@ class Solution {
         return dp[index][n];
     }
     
-    public int tabulation(int[] slices){
+    public int tabulation(int[] slices)
+    {
         // DP creation and base case conversion
         int n= slices.length;
         int[][] dp1 = new int[n+2][n];
@@ -56,8 +58,49 @@ class Solution {
         int two = dp2[1][n/3];
         
         return Math.max(one, two);
+    }
+    
+    public int space(int[] slices)
+    {
+        int n= slices.length;
+        int[] curr1 = new int [n];
+        int[] prev1 = new int [n];
+        int[] next1 = new int [n];
+        
+        int[] curr2 = new int [n];
+        int[] prev2 = new int [n];
+        int[] next2 = new int [n];
         
         
+        for(int index = n-2; index >= 0; index --){
+            for(int k = 1; k <= n/3; k++){
+                int take = slices[index] + next1[k-1];
+
+                int notTake = 0 + curr1[k];
+                    
+                prev1[k]=Math.max(take, notTake);
+            }
+            next1=curr1;
+            curr1=prev1;
+            prev1=new int[n];
+        }
+        int one = curr1[n/3];
+        
+        for(int index = n-1; index >= 1; index --){
+            for(int k = 1; k <= n/3; k++){
+                int take = slices[index] + next2[k-1];
+
+                int notTake = 0 + curr2[k];
+                    
+                prev2[k]=Math.max(take, notTake);
+            }
+            next2=curr2;
+            curr2=prev2;
+            prev2=new int[n];
+        }
+        int two = curr2[n/3];
+        System.out.println(one+""+two);
+        return Math.max(one, two);   
     }
     public int maxSizeSlices(int[] slices) {
         // recursive approach -> TLE
@@ -69,16 +112,22 @@ class Solution {
         
         
         // Memoization -> worked
-//         int n= slices.length;
-//         int[][] dp1 = new int[n][n];
-//         int one = memo(slices, 0, n-2, n/3, dp1);
+        //int n= slices.length;
+        //int[][] dp1 = new int[n][n];
+        //int one = memo(slices, 0, n-2, n/3, dp1);
         
-//         int[][] dp2 = new int[n][n];
-//         int two = memo(slices, 1, n-1, n/3, dp2);
-//         return Math.max(one, two);
+        //int[][] dp2 = new int[n][n];
+        //int two = memo(slices, 1, n-1, n/3, dp2);
+        //return Math.max(one, two);
         
-        // Tabulation
-        return tabulation(slices);
+        
+        // Tabulation-> Accepted
+        // return tabulation(slices);
+        
+        
+        // Space Optimization
+        return space(slices);
+        // didn;t work as of now. have coded but couldn't debug the semantic error.
     }
 }
 
