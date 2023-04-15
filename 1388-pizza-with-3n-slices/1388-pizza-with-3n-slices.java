@@ -25,8 +25,42 @@ class Solution {
         dp[index][n]=Math.max(take, notTake);
         return dp[index][n];
     }
+    
+    public int tabulation(int[] slices){
+        // DP creation and base case conversion
+        int n= slices.length;
+        int[][] dp1 = new int[n+2][n];
+        int[][] dp2 = new int[n+2][n];
+        // base case returner is already 0 so we don't need to update the base cases in our DP array's
+        
+        for(int index = n-2; index >= 0; index --){
+            for(int k = 1; k <= n/3; k++){
+                int take = slices[index] + dp1[index + 2][k-1];
+
+                int notTake = 0 + dp1[index+1][k];
+                    
+                dp1[index][k]=Math.max(take, notTake);
+            }
+        }
+        int one = dp1[0][n/3];
+        
+        for(int index = n-1; index >= 1; index --){
+            for(int k = 1; k <= n/3; k++){
+                int take = slices[index] + dp2[index + 2][k-1];
+
+                int notTake = 0 + dp2[index+1][k];
+                    
+                dp2[index][k]=Math.max(take, notTake);
+            }
+        }
+        int two = dp2[1][n/3];
+        
+        return Math.max(one, two);
+        
+        
+    }
     public int maxSizeSlices(int[] slices) {
-        // recursive approach
+        // recursive approach -> TLE
         // int n= slices.length;
         // int one = recursive(slices, 0, n-2, n/3);
         // int two = recursive(slices, 1, n-1, n/3);
@@ -34,14 +68,17 @@ class Solution {
         
         
         
-        // Memoization
-        int n= slices.length;
-        int[][] dp1 = new int[n][n];
-        int one = memo(slices, 0, n-2, n/3, dp1);
+        // Memoization -> worked
+//         int n= slices.length;
+//         int[][] dp1 = new int[n][n];
+//         int one = memo(slices, 0, n-2, n/3, dp1);
         
-        int[][] dp2 = new int[n][n];
-        int two = memo(slices, 1, n-1, n/3, dp2);
-        return Math.max(one, two);
+//         int[][] dp2 = new int[n][n];
+//         int two = memo(slices, 1, n-1, n/3, dp2);
+//         return Math.max(one, two);
+        
+        // Tabulation
+        return tabulation(slices);
     }
 }
 
