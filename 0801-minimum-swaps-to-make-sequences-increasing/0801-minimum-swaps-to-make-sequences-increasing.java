@@ -83,4 +83,16 @@ class Solution {
 /*
 is the second if statement in the body really needed.
 you sure you understand if Swapped statement.
+
+
+
+second if is needed other wise we are swapping for all indexes.
+still not clear why. GOTTA UNDERSTAND IT BY DRY RUNNING IT MORE.
+
+okay
+question was that why we cannot swap for all indexes given that an answer is always possible....
+
+
+
+thought an answer is always possible if we swap at all places, we may swap for places where no swap was NEEDED thus in THEORY  at those places the swap will actually distrupt the strictly increasing order. and our answer was not accepted coz of the same reason, somewhere the order may have been distrupted and future swaps which were actually needed were then avoided and our SUBMITTION 3 was rejected on the testcase.
 */
