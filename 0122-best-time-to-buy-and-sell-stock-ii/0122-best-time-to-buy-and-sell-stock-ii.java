@@ -11,12 +11,14 @@ class Solution {
         // return recursive(prices, 0, true);
         // recursive solution ran but gave TLE
         
-        int[][] dp = new int[2][prices.length];
-        Arrays.fill(dp[0], -1);
-        Arrays.fill(dp[1], -1);
-        // Please note that boolean buy also need to behave as an integer for the array.
-        // 0 is false and one is true.
-        return memo(prices, 0, 1, dp);
+        // int[][] dp = new int[2][prices.length];
+        // Arrays.fill(dp[0], -1);
+        // Arrays.fill(dp[1], -1);
+        // // Please note that boolean buy also need to behave as an integer for the array.
+        // // 0 is false and one is true.
+        // return memo(prices, 0, 1, dp);
+        
+        return tabulation(prices);
     }
     public int recursive(int[] prices, int index, boolean buy )
     {
@@ -61,7 +63,8 @@ class Solution {
     public int tabulation(int[] prices)
     {
         int n = prices.length;
-        int[][] dp = new int[2][n];
+        int[][] dp = new int[2][n+1];
+        
         // base is 0 so its automatically filled.
         for(int index = n-1; index >= 0; index --){
             for(int buy = 0 ; buy <= 1; buy++){
@@ -73,7 +76,7 @@ class Solution {
                     value = Math.max(bought, skipB);
                 }
                 else {
-                    int sell = (prices[index] + dp[1][ index+1]);
+                    int sell = (prices[index] + dp[1][index+1]);
                     int skipS = 0 + dp[0][index+1];
                     value = Math.max(sell, skipS);
                 }
