@@ -5,15 +5,19 @@ class Solution {
         
         // moving on to memoisation
         // [ index][buy][limit];
-        int n = prices.length;
-        int limit = 2;
-        int[][][] dp = new int [n][2][limit+1];
-        for(int a = 0; a < dp.length; a++ ){
-            for(int b = 0; b<dp[0].length; b++){
-                Arrays.fill(dp[a][b], -1);
-            }
-        }
-        return memo(prices, 0, 1, limit, dp);
+        // int n = prices.length;
+        // int limit = 2;
+        // int[][][] dp = new int [n][2][limit+1];
+        // for(int a = 0; a < dp.length; a++ ){
+        //     for(int b = 0; b<dp[0].length; b++){
+        //         Arrays.fill(dp[a][b], -1);
+        //     }
+        // }
+        // return memo(prices, 0, 1, limit, dp);
+        
+        // moving on to tabulation
+        int limit=2;
+        return tabulation(prices, limit);
 
     }
     public int recursive(int[] prices, int index, boolean buy, int limit)
@@ -44,7 +48,7 @@ class Solution {
         if(dp[index][buy][limit]!=-1) return dp[index][buy][limit];
         
         int value = 0;
-    if (buy==1) {
+        if (buy==1) {
             // in buy itself there are two choices.
             int bought = -(prices[index]) + memo(prices, index+1, 0, limit, dp);
             int skipB = 0 + memo(prices, index+1, 1, limit, dp);
@@ -57,5 +61,34 @@ class Solution {
         }
         dp[index][buy][limit] = value;
         return dp[index][buy][limit];
+    }
+    public int tabulation(int[] prices, int lnt)
+    {
+        // dp creaion and filling of base cases
+        int n=prices.length;
+        int[][][] dp= new int [n+1][2][lnt+1];
+        // order [index][buy][limit]
+        // base cases values are already 0 so no shit there
+        
+        for(int index=n-1; index >= 0; index--){
+            for(int buy =0; buy <=1; buy++){
+                for(int limit = 1; limit <= lnt; limit++){
+                    int value = 0;
+                    if (buy==1) {
+                        // in buy itself there are two choices.
+                        int bought = -(prices[index]) + dp[index+1][0][limit];
+                        int skipB = 0 + dp[index+1][1][limit];
+                        value = Math.max(bought, skipB);
+                    }
+                    else {
+                        int sell = (prices[index] + dp[index+1][1][limit-1]);
+                        int skipS = 0 + dp[index+1][0][limit];
+                        value = Math.max(sell, skipS);
+                    }
+                    dp[index][buy][limit] = value;
+                }
+            }
+        }
+        return dp[0][1][lnt];
     }
 }
