@@ -95,4 +95,19 @@ question was that why we cannot swap for all indexes given that an answer is alw
 
 
 thought an answer is always possible if we swap at all places, we may swap for places where no swap was NEEDED thus in THEORY  at those places the swap will actually distrupt the strictly increasing order. and our answer was not accepted coz of the same reason, somewhere the order may have been distrupted and future swaps which were actually needed were then avoided and our SUBMITTION 3 was rejected on the testcase.
+
+
+
+
+17th april update: the other condition is only to avoid swapping in the optimal case, where no swapping is needed. but we also used 1st condition for the no swap condition, w
+
+so the four cases that are possible are
+
+both prev lesser        1st if condition
+one greater             2nd if condition
+other greater           2nd if condition
+none lesser            won't be a generated case in the question
+
+so in all we have 3 conditions only 1st for no swap. and 2nd and 3rd for swap call. so only an 
+if-else works, instead of 2 if's.
 */
