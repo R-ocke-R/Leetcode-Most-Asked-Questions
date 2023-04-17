@@ -19,7 +19,11 @@ class Solution {
         // return newMemo(prices, 0, 0, k, dp);
         
         // tabulation
-        return tabulation(prices, k);
+        // return tabulation(prices, k);
+        
+        
+        //final new space optimised solution O(1);
+        return newSpace(prices, k);
     }
     public int space(int[] prices, int lnt)
     {
@@ -92,8 +96,8 @@ class Solution {
         dp[index][operations] = value;
         return dp[index][operations];
     }
-        
-    public int tabulation(int[] prices, int k){
+    public int tabulation(int[] prices, int k)
+    {
         int total = 2*k;
         int n= prices.length;
         int[][] dp= new int[n+1][total+1];
@@ -115,5 +119,31 @@ class Solution {
             }
         }
         return dp[0][0];
+    }
+    public int newSpace(int[] prices, int k){
+        int total = 2*k;
+        int n= prices.length;
+        // int[][] dp= new int[n+1][total+1];
+        int[] next = new int[total+1];
+        int[] curr = new int[total+1];
+        
+        for(int index = n-1 ; index >= 0; index--){
+            for(int operations = total-1 ; operations >= 0;  operations --) {
+                int value=0;
+                if(operations%2==0){
+                    int bought = -(prices[index]) + next[operations+1];
+                    int skipB = 0 + next[operations];
+                    value = Math.max(bought, skipB);
+                }
+                else {
+                    int sell = (prices[index] + next[operations+1]);
+                    int skipS = 0 + next[operations];
+                    value = Math.max(sell, skipS);
+                }
+                curr[operations]=value;
+            }
+            next=curr;
+        }
+        return next[0];
     }
 }
