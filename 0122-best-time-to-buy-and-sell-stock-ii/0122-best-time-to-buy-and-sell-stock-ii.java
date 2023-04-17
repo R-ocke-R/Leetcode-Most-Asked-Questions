@@ -38,7 +38,8 @@ class Solution {
         }
         return value;
     }
-    public int memo(int[] prices, int index, int buy, int[][] dp){
+    public int memo(int[] prices, int index, int buy, int[][] dp)
+    {
         if(index==prices.length) return 0;        
         if(dp[buy][index]!=-1) return dp[buy][index];
         
@@ -56,6 +57,30 @@ class Solution {
         }
         dp[buy][index]=value;
         return dp[buy][index];
+    }
+    public int tabulation(int[] prices)
+    {
+        int n = prices.length;
+        int[][] dp = new int[2][n];
+        // base is 0 so its automatically filled.
+        for(int index = n-1; index >= 0; index --){
+            for(int buy = 0 ; buy <= 1; buy++){
+                int value = 0;
+                if (buy==1) {
+                    // in buy itself there are two choices.memo
+                    int bought = -(prices[index]) + dp[0][index+1];
+                    int skipB = 0 + dp[1][index+1];
+                    value = Math.max(bought, skipB);
+                }
+                else {
+                    int sell = (prices[index] + dp[1][ index+1]);
+                    int skipS = 0 + dp[0][index+1];
+                    value = Math.max(sell, skipS);
+                }
+                dp[buy][index]=value;
+            }
+        }
+        return dp[1][0];
     }
     
 }
