@@ -27,7 +27,7 @@ class Solution {
         int mini=Integer.MAX_VALUE;
         if(nums1[index] > prev1 && nums2[index] > prev2) mini=recursive(nums1, nums2, index+1, false);
         // swap
-        if(nums1[index] > prev2 && nums2[index] > prev1) mini=Math.min(mini, 1+recursive(nums1, nums2, index+1, true));
+        else mini=Math.min(mini, 1+recursive(nums1, nums2, index+1, true));
         
         return mini;
         
