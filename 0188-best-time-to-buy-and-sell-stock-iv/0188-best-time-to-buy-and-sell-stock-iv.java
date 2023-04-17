@@ -11,12 +11,15 @@ class Solution {
         // working function but slow -> TLE
         
         // Memo
-        int n= prices.length;
-        int[][] dp = new int[n][k*2];
-        for(int i=0;i<n;i++){
-            Arrays.fill(dp[i], -1);
-        }
-        return newMemo(prices, 0, 0, k, dp);
+        // int n= prices.length;
+        // int[][] dp = new int[n][k*2];
+        // for(int i=0;i<n;i++){
+        //     Arrays.fill(dp[i], -1);
+        // }
+        // return newMemo(prices, 0, 0, k, dp);
+        
+        // tabulation
+        return tabulation(prices, k);
     }
     public int space(int[] prices, int lnt)
     {
@@ -90,4 +93,27 @@ class Solution {
         return dp[index][operations];
     }
         
+    public int tabulation(int[] prices, int k){
+        int total = 2*k;
+        int n= prices.length;
+        int[][] dp= new int[n+1][total+1];
+        
+        for(int index = n-1 ; index >= 0; index--){
+            for(int operations = total-1 ; operations >= 0;  operations --) {
+                int value=0;
+                if(operations%2==0){
+                    int bought = -(prices[index]) + dp[index+1][operations+1];
+                    int skipB = 0 + dp[index+1][operations];
+                    value = Math.max(bought, skipB);
+                }
+                else {
+                    int sell = (prices[index] + dp[index+1][operations+1]);
+                    int skipS = 0 + dp[index+1][operations];
+                    value = Math.max(sell, skipS);
+                }
+                dp[index][operations]=value;
+            }
+        }
+        return dp[0][0];
+    }
 }
