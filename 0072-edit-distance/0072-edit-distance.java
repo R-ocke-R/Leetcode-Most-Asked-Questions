@@ -72,6 +72,44 @@ class Solution {
         
         
     }
+    public int space(String word1, String word2){
+        int n=word1.length();
+        int m= word2.length();
+        if(n==0) return m;
+        if(m==0) return n;
+        // int[][] dp = new int[n+1][m+1];
+        int[] next = new int[m+1];
+        int[] curr = new int[m+1];
+        
+        // filling the base cases
+        for(int i=0; i<m; i++){
+            next[i]=m-i;
+        }
+        // for(int j=0;j<n;j++){
+        //     dp[j][m]=n-j;
+        // }
+        
+        for(int i=n-1;i>=0;i--){
+            for(int j=m-1;j>=0;j--){
+                int ans = 0;
+                curr[m]=n-i;
+                if(word1.charAt(i)==word2.charAt(j)) ans = next[j+1];
+        
+                else {
+                    ans = 1 + curr[j+1];
+                    ans = Math.min(ans, 1 + next[j]);
+                    ans = Math.min(ans, 1 + next[j+1]);
+                }
+                curr[j]=ans; 
+            }
+            next=curr;
+            curr=new int[m+1];
+            
+        }
+        return next[0];
+        
+        
+    }
     public int minDistance(String word1, String word2) {
         // return recursive(word1, word2, 0, 0)
         // recursive TLE
@@ -81,6 +119,7 @@ class Solution {
         // return memo(word1, word2, 0, 0, dp);
         
         //tabulation
-        return tabulation(word1, word2);
+        // return tabulation(word1, word2);
+        return space(word1, word2);
     }
 }
