@@ -1,5 +1,5 @@
 class Solution {
-    public int[] findThePrefixCommonArray(int[] A, int[] B) {
+    public int[] findThePrefixCommonArray2(int[] A, int[] B) {
         int n= A.length;
         int[] C = new int [n];
         
@@ -17,6 +17,22 @@ class Solution {
             }
         }
         return C;
+    }
+    public int[] findThePrefixCommonArray(int[] A, int[] B){
+        int n= A.length;
+        int[] C = new int[n+1];
+        int[] D = new int[n];
+        
+        int count=0;
+        
+        for(int i=0;i<n;i++){
+            
+            if(++C[A[i]] == 2) count++;
+            if(++C[B[i]] == 2) count++;
+            
+            D[i]=count;
+        }
+        return D;
     }
 }
 /* Brute force : O(n^2) solution*/
