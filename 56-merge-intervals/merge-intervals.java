@@ -11,29 +11,30 @@ class Solution {
         List<List<Integer>> ans = new ArrayList<>();
 
         for(int i = 0; i< n ; i++){
+            // improving the TC from 2n to n
             int start = intervals[i][0];
             int end = intervals[i][1];
-
-            // case 1 : we have already included current element in some interval
-            // se we check that
-            if(!ans.isEmpty() && end <= ans.get(ans.size()-1).get(1)){
+            
+            // case 1 : empty
+            if(ans.isEmpty()){
+                ans.add(Arrays.asList(start,end));
                 continue;
             }
-
-            // case 2 : either ans is empty meaning this is the first inteval or
-            //end of current is not lesser than the previous interval's end, thus its not part of the previous interval
-            // we have to make new interval to include this.
-            for(int j = i+1; j < n; j++){
-                // if we can include the next interval
-                if(intervals[j][0] <= end ){
-                    end = Math.max(end, intervals[j][1]);
-                }
-                else{
-                    // we have formed a new interval, no more intervals can be a part of this interval.
-                    break;
-                }
+            // case 2: included
+            int prevEnd = ans.get(ans.size()-1).get(1);
+            if(end <= prevEnd){
+                continue;
             }
-            ans.add(Arrays.asList(start, end));
+            // case 3 : excluded so include
+            else if(start <= prevEnd){
+                prevEnd = Math.max(end, prevEnd);
+                ans.get(ans.size()-1).set(1, prevEnd);
+            }
+            // exclude so new 
+            else {
+                ans.add(Arrays.asList(start, end));
+                
+            }
         }
         int[][] array = ans.stream()
                                   .map(innerList -> innerList.stream().mapToInt(Integer::intValue).toArray())
