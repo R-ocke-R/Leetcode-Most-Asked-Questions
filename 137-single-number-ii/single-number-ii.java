@@ -1,5 +1,5 @@
 class Solution {
-    public int singleNumber(int[] nums) {
+    public int singleNumberSClinear(int[] nums) {
         /** Continuing from the previous question, single number 1; 
         let's first see the transferable approaches, before looking for more patterns
         HashMap and sort and check methods will work but very high computations.
@@ -20,5 +20,19 @@ class Solution {
         //System.out.println(numsum);
         return (int)((3*setsum-numsum)/2);
 
+    }
+    public int singleNumber(int[] nums){
+        // this is a better approach, that doesn't take any space.
+        // find explanation in notes
+        int ans = 0;
+        for(int bits =0; bits <= 31; bits ++){
+            int count = 0;
+            int bit = 1<<bits;
+            for(int index = 0; index < nums.length; index ++){
+                if((nums[index]&bit)!=0) count++;
+            }
+            if(count % 3 !=0) ans += (1<< bits);
+        }
+        return ans;
     }
 }
