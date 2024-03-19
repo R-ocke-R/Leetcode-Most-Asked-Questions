@@ -21,7 +21,7 @@ class Solution {
         return (int)((3*setsum-numsum)/2);
 
     }
-    public int singleNumber(int[] nums){
+    public int singleNumberSCconstant(int[] nums){
         // this is a better approach, that doesn't take any space.
         // find explanation in notes
         int ans = 0;
@@ -34,5 +34,20 @@ class Solution {
             if(count % 3 !=0) ans += (1<< bits);
         }
         return ans;
+    }
+    public int singleNumber(int[] nums){
+        // best approach for this question, wonderful approach but don't expect to 
+        // come to its intuition, I can explain why it works in the notes, but not how to reach to that approach
+        // but all in all its a beautiful bit manipulation technique.
+        int ones = 0;
+        int twos = 0;
+        // both of these will measure the occurance nums[i]; whether ones or twice
+        // in the end all the triplets will cancel themselves using this beautiful bit technique
+
+        for(int i = 0 ; i < nums.length ; i++){
+            ones = (ones ^ nums[i]) & ~(twos);
+            twos = (twos ^ nums[i]) & ~(ones);
+        }    
+        return ones;
     }
 }
