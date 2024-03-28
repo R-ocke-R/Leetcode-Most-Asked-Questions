@@ -58,7 +58,7 @@ class Solution {
         }
         return maxL;
     }
-    public int totalFruit(int[] fruits){
+    public int totalFruitBest(int[] fruits){
         HashMap<Integer, Integer> map = new HashMap<>();
         int maxL = 0;
         int n = fruits.length;
@@ -84,6 +84,41 @@ class Solution {
             else {
                 maxL = Math.max(maxL, right-left+1);
             }
+            right ++;
+        }
+        return maxL;
+    }
+    public int totalFruit(int[] fruits){
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int maxL = 0;
+        int n = fruits.length;
+
+        int left = 0;
+        int right = 0;
+        
+        while(right < n){
+            int val  =  fruits[right];
+
+            // expand window but instead of freq put the last occurance
+            map.put(val, right);
+
+            // shrink window to the least 
+            if(map.size() > 2){
+                int leastkey = 0;
+                int leastleft = right;
+                // iterate throught all map values.
+                for(Integer key : map.keySet()){
+                    if(map.get(key) < leastleft){
+                        leastleft = map.get(key);
+                        leastkey= key;
+                    }
+                }
+                map.remove(leastkey);
+                left = leastleft+1;
+                
+            }
+            // check and update
+            maxL = Math.max(maxL, right-left+1);
             right ++;
         }
         return maxL;
