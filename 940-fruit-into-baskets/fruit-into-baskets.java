@@ -22,7 +22,7 @@ class Solution {
         
         return maxL;
     }
-    public int totalFruit(int[] fruits){
+    public int totalFruitBetter(int[] fruits){
         /** to optimise any subarray problem we use our sliding window technique
         in order to have sliding window in this question, we need to store the elements 
         a set won't work as be can't now either the locaiton or the last occurance
@@ -48,13 +48,42 @@ class Solution {
 
             // shrink window
             while(map.size() > 2){
-                int remVal = fruits[left];
+                int remVal = fruits[left++];
                 int remFreq = map.get(remVal);
                 if(remFreq == 1) map.remove(remVal);
                 else map.put(remVal, remFreq-1);
-                left ++;
             }
             maxL = Math.max(maxL, right-left+1);
+            right ++;
+        }
+        return maxL;
+    }
+    public int totalFruit(int[] fruits){
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int maxL = 0;
+        int n = fruits.length;
+
+        int left = 0;
+        int right = 0;
+        
+        while(right < n){
+            int val  =  fruits[right];
+
+            // expand window
+            if(map.containsKey(val)) map.put(val, map.get(val)+1);
+            else map.put(val, 1);
+
+            // shrink window
+            if(map.size() > 2){
+                int remVal = fruits[left++];
+                int remFreq = map.get(remVal);
+                if(remFreq == 1) map.remove(remVal);
+                else map.put(remVal, remFreq-1);
+            }
+            // check and update
+            else {
+                maxL = Math.max(maxL, right-left+1);
+            }
             right ++;
         }
         return maxL;
