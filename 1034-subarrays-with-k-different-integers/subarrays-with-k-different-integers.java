@@ -20,6 +20,8 @@ class Solution {
                 if(freq == 1) map.remove(value);
                 else map.put(value, freq-1);
             }
+            // each new right value will are valid will not just make one subarray but will make multiple
+            // based on where left pointer is.
             count += right - left + 1;
 
             right ++;
