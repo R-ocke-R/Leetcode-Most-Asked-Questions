@@ -1,5 +1,5 @@
 class Solution {
-    public int majorityElement(int[] nums) {
+    public int majorityElementBetter(int[] nums) {
         HashMap<Integer, Integer> map = new HashMap<>();
 
         for(int i=0;i<nums.length;i++){
@@ -16,18 +16,18 @@ class Solution {
         }
         return maxEle;
     }
-    public int majorityElementBest(int[] nums) {
-        int majority=0;
-        int count=1;
+    public int majorityElement(int[] nums) {
+        int majority = 0;
+        int count = 0;
         
-        for(int i=1;i<nums.length;i++){
-            count += (nums[i]==nums[majority]) ? 1:-1;
-            
+        for(int i=0;i<nums.length;i++){
             if(count==0) {
-                majority=++i;
+                majority=nums[i];
                 count++;
             }
+            else if(nums[i] == majority) count ++;
+            else count--;             
         }
-        return nums[majority];
+        return majority;
     }
 }
