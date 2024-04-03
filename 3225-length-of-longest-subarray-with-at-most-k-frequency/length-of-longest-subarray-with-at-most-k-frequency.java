@@ -38,6 +38,34 @@ class Solution {
                 if(value == val) freq = leftFreq;
 
             }
+            maxL = Math.max(maxL, right - left + 1);
+            right ++;
+        }
+    
+        return maxL;
+    }
+    public int maxSubarrayLengthBestNotWorkingNow(int[] nums, int k) {
+        HashMap<Integer, Integer> freqMap = new HashMap<>();
+        int n = nums.length;
+
+        int maxL = 0;
+        int right = 0;
+        int left = 0;
+        while(right < n){
+            int val = nums[right];
+            int freq = freqMap.getOrDefault(val, 0) + 1;
+            freqMap.put(val, freq);
+
+            if(freq > k) {
+                // move left pointer. till we are able to remove one occurance of the curent val
+                // updating furthur : moving left pointer only once.
+                int value = nums[left++];
+                int leftFreq =freqMap.getOrDefault(value, 0) -1;
+                freqMap.put(value, leftFreq);
+
+                if(value == val) freq = leftFreq;
+
+            }
             if(freq <= k) maxL = Math.max(maxL, right - left + 1);
             right ++;
         }
