@@ -1,20 +1,15 @@
 class Solution {
     public int[] singleNumber(int[] nums) {
-        // coding the OG approach
         int xor = 0;
-        for (Integer i : nums) xor^=i;
-        // now we seperate the two number based on the right most set bit
-        int right = (xor&(xor-1)) ^ xor;
+        for(Integer x:nums) xor ^= x;
 
-        // to seperate we can just use for + if
-        int on = 0;
-        int off = 0;
+        int right = (xor&(xor-1))^xor;
+        int onBucket = 0;
+        int offBucket = 0;
         for(int i = 0; i < nums.length; i++){
-            // if right bit is on 
-            if((right & nums[i]) != 0) on ^=nums[i];
-            // if right bit is off.
-            else off ^= nums[i];
+            if((right&nums[i])!=0) onBucket^=nums[i];
+            else offBucket^=nums[i];
         }
-        return new int[]{on, off};
+        return new int[]{onBucket, offBucket};
     }
 }
