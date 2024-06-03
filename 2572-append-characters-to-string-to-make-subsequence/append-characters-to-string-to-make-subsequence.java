@@ -1,19 +1,21 @@
 class Solution {
     public int appendCharacters(String s, String t) {
-        int first = 0, longestPrefix = 0;
+        int maxApp = 0;
+        int sn = s.length();
+        int tn = t.length();
+        int i = 0;
+        int j = 0;
 
-        while (first < s.length() && longestPrefix < t.length()) {
-            if (s.charAt(first) == t.charAt(longestPrefix)) {
-                // Since at the current position both the characters are equal,
-                // increment longestPrefix by 1
-                longestPrefix++;
+        while(i<tn && j<sn){
+            char find = t.charAt(i);
+            char show = s.charAt(j);
+            if(find == show) {
+                i++; j++;
             }
-            first++;
+            else j++;
         }
-
-        // The number of characters appended is given by the difference in
-        // length of t and longestPrefix
-        return t.length() - longestPrefix;
+        maxApp = tn-i;
+        return maxApp;
     }
 }
 
