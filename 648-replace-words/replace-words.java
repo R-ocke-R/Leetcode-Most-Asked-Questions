@@ -1,26 +1,58 @@
-class Solution {
-
-    public String replaceWords(List<String> dictionary, String sentence) {
-        String[] wordArray = sentence.split(" ");
-        Set<String> dictSet = new HashSet<>(dictionary);
-
-        // Replace each word in sentence with the corresponding shortest root
-        for (int i = 0; i < wordArray.length; i++) {
-            wordArray[i] = shortestRoot(wordArray[i], dictSet);
-        }
-
-        return String.join(" ", wordArray);
+class TrieNode {
+    boolean isEnd;
+    TrieNode[] children;
+    TrieNode(){
+        isEnd = false;
+        children = new TrieNode[26];
     }
+}
 
-    private String shortestRoot(String word, Set<String> dictSet) {
-        // Find the shortest root of the word in the dictionary
-        for (int i = 1; i <= word.length(); i++) {
-            String root = word.substring(0, i);
-            if (dictSet.contains(root)) {
-                return root;
+class Trie{
+    private TrieNode root;
+
+    public Trie(){
+        root = new TrieNode();
+    }
+    public void insert(String word){
+        TrieNode current = root;
+        for(char c: word.toCharArray()){
+            if(current.children[c-'a']== null){
+                current.children[c-'a'] = new TrieNode();
+            }
+            current = current.children[c-'a'];
+        }
+        current.isEnd = true;
+    }
+    public String shortestRoot(String word){
+        TrieNode current = root;
+        for(int i = 0; i < word.length(); i++){
+            char c = word.charAt(i);
+            if(current.children[c-'a'] == null) {
+                // word not present
+                return word;
+            }
+            current = current.children[c-'a'];
+            if(current.isEnd) {
+                // reached the smallest prefix's end
+                return word.substring(0, i+1);
             }
         }
-        // There is not a corresponding root in the dictionary
         return word;
+    }
+}
+
+class Solution {
+    public String replaceWords(List<String> dictionary, String sentence) {
+        String wordArray[] = sentence.split(" ");
+
+        Trie dictTrie = new Trie();
+        for(String word : dictionary){
+            dictTrie.insert(word);
+        }
+
+        for(int word = 0; word < wordArray.length; word++){
+            wordArray[word] = dictTrie.shortestRoot(wordArray[word]);
+        }
+        return String.join(" ", wordArray);
     }
 }
