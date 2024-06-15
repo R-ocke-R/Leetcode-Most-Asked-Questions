@@ -1,20 +1,46 @@
 class Solution {
-    public int findMaxLength(int[] nums) {
-        int[] arr = new int[2 * nums.length + 1];
-        Arrays.fill(arr, -2);
-        arr[nums.length] = -1;
-        int maxlen = 0, count = 0;
-        for (int i = 0; i < nums.length; i++) {
-            count = count + (nums[i] == 0 ? -1 : 1);
-            if (arr[count + nums.length] >= -1) {
-                maxlen = Math.max(maxlen, i - arr[count + nums.length]);
-            } else {
-                arr[count + nums.length] = i;
-            }
+    public int findMaxLengthBrute(int[] nums) {
+        int n = nums.length;
+        int maxL = 0;
 
+        int sum = 0;
+        int currLen = 0;
+
+        for(int i = 0; i < n; i++){
+            sum = 0;
+            for(int j = i; j < n; j++){
+                sum+=nums[j];
+                currLen = j-i+1;
+                if(sum*2 == currLen){
+                    maxL = Math.max(maxL, currLen);
+                }
+            }
         }
-        return maxlen;
+        return maxL;
     }
-    // just making a submission, will rev this tomorrow. 
-    // with 17th question
+    public int findMaxLength(int[] nums) {
+        int n = nums.length;
+        int maxL = 0;
+
+        int preSum = 0;
+        int currLen = 0;
+
+        HashMap<Integer, Integer> map = new HashMap<>();
+        // stores preSum and first index of that sum
+
+        for(int i = 0; i < n; i++){
+            if(nums[i] == 0) preSum -= 1;
+            else preSum += 1;
+            if(preSum == 0) maxL = Math.max(maxL, i+1);
+            if(map.containsKey(preSum)){
+                // this sum has already been found 
+                int first = map.get(preSum);
+                maxL = Math.max(maxL, i-first);
+            }
+            else {
+                map.put(preSum, i);
+            }
+        }
+        return maxL;
+    }
 }
