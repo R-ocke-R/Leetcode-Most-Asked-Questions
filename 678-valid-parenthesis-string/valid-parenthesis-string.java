@@ -1,32 +1,27 @@
 class Solution {
     public boolean checkValidString(String s) {
-        int openCount = 0;
-        int closeCount = 0;
-        int length = s.length() - 1;
-        
-        // Traverse the string from both ends simultaneously
-        for (int i = 0; i <= length; i++) {
-            // Count open parentheses or asterisks
-            if (s.charAt(i) == '(' || s.charAt(i) == '*') {
-                openCount++;
-            } else {
-                openCount--;
+        int n = s.length();
+        int minR = 0;
+        int maxR = 0;
+
+        for(int i = 0; i < n; i++){
+            if(s.charAt(i)=='('){
+                minR ++;
+                maxR ++;
             }
-            
-            // Count close parentheses or asterisks
-            if (s.charAt(length - i) == ')' || s.charAt(length - i) == '*') {
-                closeCount++;
-            } else {
-                closeCount--;
+            else if(s.charAt(i)==')'){
+                minR--;
+                maxR--;
             }
-            
-            // If at any point open count or close count goes negative, the string is invalid
-            if (openCount < 0 || closeCount < 0) {
-                return false;
+            else{
+                // ** case of ** 
+                minR--;
+                maxR++;
             }
+            if(minR < 0) minR =0;
+            if(maxR < 0 ) return false;
         }
-        
-        // If open count and close count are both non-negative, the string is valid
-        return true;
+        return minR == 0 ? true : false;
+
     }
 }
