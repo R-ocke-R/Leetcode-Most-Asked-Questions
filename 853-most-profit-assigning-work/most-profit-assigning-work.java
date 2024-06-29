@@ -1,37 +1,26 @@
 class Solution {
     public int maxProfitAssignment(int[] difficulty, int[] profit, int[] worker) {
-        List<int[]> jobProfile = new ArrayList<>();
+        
         int n = difficulty.length;
 
-        for(int i =0; i< n; i++){
-            jobProfile.add(new int[] {difficulty[i], profit[i]});
+        int maxAbility = Arrays.stream(worker).max().getAsInt();
+        int[] jobs = new int[maxAbility+1];
+
+        // 
+        for (int i = 0; i < difficulty.length ; i++) {
+            if(difficulty[i] <= maxAbility){
+                jobs[difficulty[i]] = Math.max(jobs[difficulty[i]], profit[i]);
+            }
+        }
+        for(int i =1 ; i <= maxAbility; i++){
+            jobs[i] = Math.max(jobs[i], jobs[i-1]);
         }
 
-        //sort them  based on diff
-        Collections.sort(jobProfile, (a, b) -> Integer.compare(a[0], b[0]));
-        // sort worker as well
-        Arrays.sort(worker);
-
-        // prefix Max
-        for (int i = 0; i < jobProfile.size() - 1; i++) {
-            jobProfile.get(i + 1)[1] = Math.max(
-                jobProfile.get(i)[1],
-                jobProfile.get(i + 1)[1]
-            );
-        }
-
-        int netProfit = 0, maxProfit = 0, index = 0;
+        int netProfit = 0;
         for(int i =0; i< worker.length; i++){
             int ability = worker[i];
 
-            // finding the maxProfit 
-
-            while(index < difficulty.length && worker[i] >= jobProfile.get(index)[0]){
-                maxProfit = Math.max(maxProfit, jobProfile.get(index)[1]);
-                index ++;
-            }
-
-            netProfit += maxProfit;
+            netProfit += jobs[ability];
         }
         return netProfit;
     }
