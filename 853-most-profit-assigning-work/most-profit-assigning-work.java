@@ -1,18 +1,18 @@
 class Solution {
-
-    public int maxProfitAssignment(
-        int[] difficulty,
-        int[] profit,
-        int[] worker
-    ) {
+    public int maxProfitAssignment(int[] difficulty, int[] profit, int[] worker) {
         List<int[]> jobProfile = new ArrayList<>();
-        jobProfile.add(new int[] { 0, 0 });
-        for (int i = 0; i < difficulty.length; i++) {
-            jobProfile.add(new int[] { difficulty[i], profit[i] });
+        int n = difficulty.length;
+
+        for(int i =0; i< n; i++){
+            jobProfile.add(new int[] {difficulty[i], profit[i]});
         }
 
-        // Sort by difficulty values in increasing order.
+        //sort them  based on diff
         Collections.sort(jobProfile, (a, b) -> Integer.compare(a[0], b[0]));
+        // sort worker as well
+        Arrays.sort(worker);
+
+        // prefix Max
         for (int i = 0; i < jobProfile.size() - 1; i++) {
             jobProfile.get(i + 1)[1] = Math.max(
                 jobProfile.get(i)[1],
@@ -20,24 +20,18 @@ class Solution {
             );
         }
 
-        int netProfit = 0;
-        for (int i = 0; i < worker.length; i++) {
+        int netProfit = 0, maxProfit = 0, index = 0;
+        for(int i =0; i< worker.length; i++){
             int ability = worker[i];
 
-            // Find the job with just smaller or equal difficulty than ability.
-            int l = 0, r = jobProfile.size() - 1, jobProfit = 0;
-            while (l <= r) {
-                int mid = (l + r) / 2;
-                if (jobProfile.get(mid)[0] <= ability) {
-                    jobProfit = Math.max(jobProfit, jobProfile.get(mid)[1]);
-                    l = mid + 1;
-                } else {
-                    r = mid - 1;
-                }
+            // finding the maxProfit 
+
+            while(index < difficulty.length && worker[i] >= jobProfile.get(index)[0]){
+                maxProfit = Math.max(maxProfit, jobProfile.get(index)[1]);
+                index ++;
             }
 
-            // Increment profit of current worker to total profit.
-            netProfit += jobProfit;
+            netProfit += maxProfit;
         }
         return netProfit;
     }
