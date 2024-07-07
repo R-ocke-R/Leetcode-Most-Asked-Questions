@@ -1,21 +1,12 @@
 class Solution {
-
     public int passThePillow(int n, int time) {
-        int currentPillowPosition = 1;
-        int currentTime = 0;
-        int direction = 1;
-        while (currentTime < time) {
-            if (
-                0 < currentPillowPosition + direction &&
-                currentPillowPosition + direction <= n
-            ) {
-                currentPillowPosition += direction;
-                currentTime++;
-            } else {
-                // Reverse the direction if the next position is out of bounds
-                direction *= -1;
-            }
-        }
-        return currentPillowPosition;
+        int rounds = time/(n-1);
+        int pillow = time % (n-1);
+
+        if(rounds % 2 == 0) return pillow +1;
+        return n-pillow;
     }
 }
+
+// condition1 : forward moving at tiem
+// condition2 : backward moving at time
