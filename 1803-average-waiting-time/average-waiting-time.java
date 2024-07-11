@@ -1,22 +1,31 @@
 class Solution {
-
     public double averageWaitingTime(int[][] customers) {
-        int nextIdleTime = 0;
-        long netWaitTime = 0;
+        int n = customers.length;
 
-        for (int i = 0; i < customers.length; i++) {
-            // The next idle time for the chef is given by the time of delivery
-            // of current customer's order.
-            nextIdleTime = Math.max(customers[i][0], nextIdleTime) +
-            customers[i][1];
+        long waitingTime = 0;
+        int cookTime = 0;
 
-            // The wait time for the current customer is the difference between
-            // his delivery time and arrival time.
-            netWaitTime += nextIdleTime - customers[i][0];
+        for(int i = 0; i < n; i++){
+            int[] client = customers[i];
+            // if chef is free we start cooking and the wait time is only the cooking time
+            if(client[0] >= cookTime){
+                waitingTime += client[1];
+                cookTime = client[0] + client[1]; 
+                // cooking time will be starting time + time to cook
+            }
+
+            // if chef is busy the wait time is cooking + waiting difference time.
+            else {
+                
+                waitingTime += cookTime - client[0]; // wait till chef is free
+                waitingTime += client[1];
+                cookTime += client[1];
+            }
+
+
         }
-
-        // Divide by total customers to get average.
-        double averageWaitTime = (double) netWaitTime / customers.length;
-        return averageWaitTime;
+        //System.out.println(waitingTime);
+        double avg = (double) waitingTime / (double) n;
+        return avg;
     }
 }
