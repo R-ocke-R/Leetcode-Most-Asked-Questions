@@ -1,14 +1,31 @@
 class Solution {
-
     public int findTheWinner(int n, int k) {
-        // Initialize queue with n friends
-        Queue<Integer> circle = new LinkedList<Integer>();
-        for (int i = 1; i <= n; i++) {
+        List<Integer> circle = new LinkedList<>();
+        for(int i = 1; i <= n; i++){
             circle.add(i);
         }
 
-        // Perform eliminations while more than 1 player remains
-        while (circle.size() > 1) {
+        int startIndex = 0;
+        while(circle.size() > 1){
+            int remIndex = (startIndex + k - 1) % circle.size();
+
+            circle.remove(remIndex);
+
+            startIndex = remIndex;
+        }
+
+        return circle.getFirst();
+        
+    }
+}
+
+// can't traverse using an array of length n
+// let's try with an LinkedList.
+
+
+
+/**
+while (circle.size() > 1) {
             // Process the first k-1 friends without eliminating them
             for (int i = 0; i < k - 1; i++) {
                 circle.add(circle.remove());
@@ -17,8 +34,6 @@ class Solution {
             circle.remove();
         }
 
-        return circle.peek();
-    }
-}
+Good queue approach
 
-// to mark players - we may need a n size array or boolean type.
+ */
